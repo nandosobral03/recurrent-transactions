@@ -5,7 +5,7 @@ export interface RecurrentTransaction {
   user: string;
   recurrence:  "weekly" | "monthly";
   next_date: Date;
-  type: "income" | "expense";
+  type: "income" | "spending";
 }
 
 export const instanceOfRecurrentTransaction = (
@@ -19,6 +19,6 @@ export const instanceOfRecurrentTransaction = (
     ["weekly", "monthly"].includes(object.recurrence) &&
     "next_date" in object && 
     "type" in object  && 
-    ["income", "expense"].includes(object.type)
+    ["income", "spending"].includes(object.type)
   );
 };

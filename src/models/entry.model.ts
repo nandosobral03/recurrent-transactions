@@ -5,5 +5,5 @@ export interface EntryCreateModel {
     description: string;
     user: string;
     family: string;
-    type: "income" | "expense";
+    type: "income" | "spending";
 }
