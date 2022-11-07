@@ -9,6 +9,7 @@ import cors from 'cors';
 
 import { createHttpTerminator} from 'http-terminator';
 import http from 'http';
+import { getHealthCheck } from './controllers/health-check';
 
 const initialize = async () => {
     dotenv.config();
@@ -19,7 +20,7 @@ const initialize = async () => {
     app.use('/recurrent', authentication.verifyJWT);
     app.use('/recurrent', authorization.permit(['ADMIN']));
     app.use("/recurrent",  recurrent_routes);
-
+    app.get('/health', getHealthCheck);
 
     const server = http.createServer(app);
     const httpTerminator = createHttpTerminator({ server, gracefulTerminationTimeout: 1000 });
