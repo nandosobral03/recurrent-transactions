@@ -13,7 +13,11 @@ export const getRecurrentTransactions = async (family: string, offset: string, l
             total: total,
             offset: offsetNum,
             limit: limitNum,
-            transactions: transactions
+            transactions: transactions.map((transaction: any) => {
+                const {total, ...t} = transaction;
+                return t;
+            }                    
+            )
         }
         return response;
     }

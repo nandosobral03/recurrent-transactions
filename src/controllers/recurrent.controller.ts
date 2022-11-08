@@ -107,11 +107,11 @@ export const updateRecurrentTransaction = async (req: Request, res: Response) =>
     const body = req.body;
     body.user = email;
     if (!moment(req.body.next_date, "MM/DD/YYYY", true).isValid()) {
-        res.status(400).send("Invalid date format, format should be MM/DD/YYYY");
+        res.status(400).send({message:"Invalid date format, format should be MM/DD/YYYY"});
         return;
     }
     if(!moment(req.body.next_date, "MM/DD/YYYY", true).isSameOrAfter(moment(), "day")){
-        res.status(400).send("Date should be after today");
+        res.status(400).send({message: "Invalid date, date should be in the future"});
         return;
     }
 
@@ -138,7 +138,7 @@ export const updateRecurrentTransaction = async (req: Request, res: Response) =>
                     actor: email,
                     family: family,
                   });
-                res.status(err.status).send(err.message);
+                res.status(err.status).send({message:err.message});
             }
             else{
                 logInformation({
@@ -148,11 +148,11 @@ export const updateRecurrentTransaction = async (req: Request, res: Response) =>
                     actor: email,
                     family: family,
                   });
-                res.status(500).send("Internal Server Error");
+                res.status(500).send({message: "Internal server error"});
             }
         }
     }else{
-        res.status(400).send("Invalid request body");
+        res.status(400).send({message: "Invalid request body"});
     }
 }
 
@@ -179,7 +179,7 @@ export const deleteRecurrentTransaction = async (req: Request, res: Response) =>
                 actor: email,
                 family: family,
               });
-            res.status(err.status).send(err.message);
+            res.status(err.status).send({message: err.message});
         }
         else{
             logInformation({
@@ -189,7 +189,7 @@ export const deleteRecurrentTransaction = async (req: Request, res: Response) =>
                 actor: email,
                 family: family,
               });
-            res.status(500).send("Internal Server Error");
+            res.status(500).send({message: "Internal server error"});
         }
     }
 }
