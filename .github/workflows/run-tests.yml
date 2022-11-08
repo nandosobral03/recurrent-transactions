@@ -1,14 +1,9 @@
-name: 'Test'
+name: 'coverage'
 on:
     pull_request:
         branches:
             - master
             - main
-            - develop
-    push:
-        branches:
-            - main
-            - master
             - develop
 jobs:
     coverage:
