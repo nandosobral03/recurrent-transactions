@@ -7,21 +7,6 @@ import recurrentRepository from "./repositories/recurrent.repository";
 export const initializeQueue = async () => {
     const sqs = new SQS();
     const QUEUE_URL = process.env.CATEGORY_QUEUE_URL as string;
-    // const category = {
-    //     id: Math.random().toString(36).substring(7),  
-    //     family: "123", action: "CREATE"} as CategoryMessageModel;
-    // const params = {
-    //     MessageBody: JSON.stringify(category),
-    //     QueueUrl: QUEUE_URL
-    // };
-    
-    // await sqs.sendMessage(params).promise();
-
-    // setTimeout(async () => {
-    //     category.action = "DELETE";
-    //     params.MessageBody = JSON.stringify(category);
-    //     await sqs.sendMessage(params).promise();
-    // }, 10000);
     while(true){
         const result = await sqs.receiveMessage({
             QueueUrl: QUEUE_URL,
