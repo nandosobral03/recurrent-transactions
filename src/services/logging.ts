@@ -1,9 +1,11 @@
 import { Log } from "../models/log.model"
-
+import rTracer from "cls-rtracer"
 export const logInformation = async (data: Log) => {
-    var actor = ""
+    let actor = ""
     if(data.actor) actor = ` by user ${data.actor}`;
-    var family = ""
+    let family = ""
     if(data.family) family = ` in family ${data.family}`;
-    console.log(`[${data.type}] ${data.timestamp} - ${data.message}` + actor + family);
+
+    let trace = rTracer.id() as string ? `[trace: ${rTracer.id() as string}]` : "";
+    console.log(`[${data.type}] ${trace} ${data.timestamp} - ${data.message}` + actor + family);
 }
