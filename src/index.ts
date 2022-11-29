@@ -1,3 +1,5 @@
+require('newrelic');
+
 (async () => {
     // require('newrelic');
     const app = require("./web-server");

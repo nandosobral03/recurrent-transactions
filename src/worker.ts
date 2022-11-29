@@ -5,7 +5,14 @@ import nodeCron from "node-cron";
 import recurrentRepository from "./repositories/recurrent.repository";
 
 export const initializeQueue = async () => {
-    const sqs = new SQS();
+    const sqs = new SQS(
+        {
+          region: process.env.AWS_REGION as string,
+          accessKeyId: process.env.AWS_ACCESS_KEY_ID as string,
+          secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string,
+          sessionToken: process.env.AWS_SESSION_TOKEN as string
+        }
+      );
     const QUEUE_URL = process.env.CATEGORY_QUEUE_URL as string;
     while(true){
         const result = await sqs.receiveMessage({

@@ -2,7 +2,6 @@ import * as dotenv from 'dotenv';
 import express from 'express';
 import recurrent_routes from './routes/recurrent.routes';
 import * as authentication from './middlewares/authentication.middleware';
-import * as authorization from './middlewares/authorization.middleware';
 import rTracer from 'cls-rtracer';
 
 import cors from 'cors';
@@ -23,7 +22,6 @@ const initialize = async () => {
     app.use(cors())
     app.use(express.json())
     app.use('/recurrent', authentication.verifyJWT);
-    app.use('/recurrent', authorization.permit(['ADMIN']));
     app.use("/recurrent",  recurrent_routes);
     app.get('/health', getHealthCheck);
 

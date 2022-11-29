@@ -22,9 +22,12 @@ COPY migrations ./migrations
 RUN npm ci --omit=dev
 
 COPY --from=builder /usr/src/app/dist ./dist
+COPY .env ./
+COPY .env ./dist
+COPY newrelic.js ./dist
+COPY newrelic.js ./
 
-EXPOSE 6004
 
-CMD ["node", "dist/index.js"]
+EXPOSE 80 
 
-
+CMD ["node","-r","newrelic", "dist/index.js"]
